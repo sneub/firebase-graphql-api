@@ -5,6 +5,12 @@ const resolvers = {
     async hello(_, { name }) {
       return `Hello ${name || 'World'}`;
     },
+
+    async getTodos() {
+      const db = firebase.firestore();
+      const todos = await db.collection('todos').get();
+      return todos.docs.map(doc => doc.data());
+    }
   },
 
   Mutation: {
